@@ -9,7 +9,7 @@ from src.model.base import Base
 
 
 class User(Base):
-    __tablename__ = "user"
+    __tablename__ = "user_bs"
 
     id: Mapped[int] = mapped_column(name="user_id", primary_key=True, autoincrement=True)
     username: Mapped[str] = mapped_column(name="username", type_=sqlalchemy.String(255), nullable=False)
