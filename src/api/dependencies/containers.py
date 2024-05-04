@@ -28,7 +28,8 @@ def user_container() -> UserService:
 def news_container() -> NewService:
     async_session = async_database.get_session()
     new_repository = NewRepository(async_session=async_session())
-    new_service = NewService(new_repository=new_repository)
+    user_repository = UserRepository(async_session=async_session())
+    new_service = NewService(new_repository=new_repository, user_repository=user_repository)
 
     return new_service
 
@@ -36,6 +37,7 @@ def news_container() -> NewService:
 def announcement_container() -> AnnouncementService:
     async_session = async_database.get_session()
     announcement_repository = AnnouncementRepository(async_session=async_session())
-    announcement_service = AnnouncementService(announcement_repository=announcement_repository)
+    user_repository = UserRepository(async_session=async_session())
+    announcement_service = AnnouncementService(announcement_repository=announcement_repository, user_repository=user_repository)
 
     return announcement_service

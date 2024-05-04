@@ -9,16 +9,6 @@ from src.dto.user import UserCreate, UserUpdate, UserResponse
 router = APIRouter(prefix="/users", tags=["Действия над пользователем"])
 
 
-@router.post(path="", status_code=status.HTTP_201_CREATED, response_model=UserResponse)
-async def create_user(user_create: UserCreate):
-    try:
-        user: UserResponse = await user_container().create_user(user_create=user_create)
-
-        return user
-    except Exception as error_detail:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error_detail))
-
-
 @router.get(path="/{user_id}", status_code=status.HTTP_200_OK, response_model=UserResponse)
 async def get_user(user_id: int):
     try:

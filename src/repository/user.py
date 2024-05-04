@@ -4,7 +4,7 @@ from sqlalchemy import select, delete, update, insert
 
 from src.model.user import User
 from src.repository.base_repository import BaseRepository
-from src.dto.user import UserCreate, UserUpdate
+from src.dto.user import UserCreate, UserUpdate, UserAuth
 
 
 class UserRepository(BaseRepository):

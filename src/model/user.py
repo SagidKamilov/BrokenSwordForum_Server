@@ -19,5 +19,5 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(name="created_at", type_=sqlalchemy.DateTime(timezone=True), server_default=functions.now())
     update_at: Mapped[datetime] = mapped_column(name="update_at", type_=sqlalchemy.DateTime(timezone=True),
                                                 server_default=functions.now(), onupdate=datetime.now())
-    # announcements: Mapped[List["Announcement"]] = relationship(back_populates="user")
-    # news: Mapped[List["New"]] = relationship(back_populates="user")
+    announcements: Mapped[List["Announcement"]] = relationship(back_populates="user")
+    news: Mapped[List["New"]] = relationship(back_populates="user")

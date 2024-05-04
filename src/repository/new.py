@@ -33,8 +33,8 @@ class NewRepository(BaseRepository):
 
         return new
 
-    async def get_news(self) -> List[New]:
-        stmt = select(New)
+    async def get_news(self, user_id: int) -> List[New]:
+        stmt = select(New).where(New.user_id == user_id)
 
         news = await self.session.execute(stmt)
         news = news.scalars()

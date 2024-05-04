@@ -10,6 +10,11 @@ class UserCreate(BaseModel):
     email: EmailStr
 
 
+class UserAuth(BaseModel):
+    email: str
+    password: str
+
+
 class UserUpdate(BaseModel):
     username: str | None = Field(default=None)
     password: str | None = Field(default=None)

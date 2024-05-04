@@ -2,7 +2,7 @@ from typing import List
 
 from src.repository.user import UserRepository
 from src.model.user import User
-from src.dto.user import UserCreate, UserUpdate, UserResponse
+from src.dto.user import UserCreate, UserUpdate, UserAuth, UserResponse
 from src.security.password import HashGenerator
 
 
@@ -28,6 +28,24 @@ class UserService:
         )
 
         user: User = await self.repository.create_user(user_create=user_create_hash_password)
+
+        return UserResponse(
+            id=user.id,
+            username=user.username,
+            email=user.email,
+            birthday=user.birthday
+        )
+
+    async def verify_user(self, user_auth: UserAuth) -> UserResponse:
+        user: User = await self.repository.get_user_by_email(user_email=user_auth.email)
+
+        if not user:
+            raise Exception(f"Пользователя с email `{user_auth.email}` не существует!")
+
+        result = await self.verify_password(password=user_auth.password, hash_password=user.hash_password)
+
+        if not result:
+            raise Exception("Неверный пароль! Повторите попытку")
 
         return UserResponse(
             id=user.id,
@@ -107,6 +125,10 @@ class UserService:
     async def hash_password(self, password: str) -> str:
         hashed_password = self.hash_generator.generate_hash_from_password(password=password)
         return hashed_password
+
+    async def verify_password(self, password: str, hash_password: str) -> bool:
+        result = self.hash_generator.verify_password(password=password, hashed_password=hash_password)
+        return result
 
     async def check_duplicate(self, user_email: str) -> bool:
         user: User = await self.repository.get_user_by_email(user_email=user_email)

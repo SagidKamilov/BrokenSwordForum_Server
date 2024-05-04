@@ -32,8 +32,8 @@ class AnnouncementRepository(BaseRepository):
 
         return announcement
 
-    async def get_announcements(self) -> List[Announcement]:
-        stmt = select(Announcement)
+    async def get_announcements(self, user_id: int) -> List[Announcement]:
+        stmt = select(Announcement).where(Announcement.user_id == user_id)
 
         announcements = await self.session.execute(stmt)
         announcements = announcements.scalars()
