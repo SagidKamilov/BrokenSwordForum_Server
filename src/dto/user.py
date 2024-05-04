@@ -1,6 +1,6 @@
 from datetime import date
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class UserCreate(BaseModel):
@@ -11,10 +11,10 @@ class UserCreate(BaseModel):
 
 
 class UserUpdate(BaseModel):
-    username: str | None
-    password: str | None
-    birthday: date | None
-    email: EmailStr | None
+    username: str | None = Field(default=None)
+    password: str | None = Field(default=None)
+    birthday: date | None = Field(default=None)
+    email: EmailStr | None = Field(default=None)
 
 
 class UserResponse(BaseModel):
