@@ -11,7 +11,7 @@ class New(Base):
     __tablename__ = "new_bs"
 
     id: Mapped[int] = mapped_column(name="new_id", primary_key=True, autoincrement=True)
-    name: Mapped[str] = mapped_column(name="name", type_=sqlalchemy.String(100), unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(name="name", type_=sqlalchemy.String(100), nullable=False)
     description: Mapped[str] = mapped_column(name="description", type_=sqlalchemy.Text, nullable=False)
     picture: Mapped[str] = mapped_column(name="picture", type_=sqlalchemy.Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(name="created_at", type_=sqlalchemy.DateTime(timezone=True), server_default=functions.now())
